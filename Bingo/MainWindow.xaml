@@ -6,22 +6,20 @@
         xmlns:local="clr-namespace:Bingo"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <StackPanel x:Name="BingoAllRowsStackPanel"
-                Orientation="Vertical">
-        <StackPanel x:Name="Row1StackPanel">
-            
-        </StackPanel>
-        <StackPanel x:Name="Row2StackPanel">
-            
-        </StackPanel>
-        <StackPanel x:Name="Row3StackPanel">
-
-        </StackPanel>
-        <StackPanel x:Name="Row4StackPanel">
-            
-        </StackPanel>
-        <StackPanel x:Name="Row5StackPanel">
-            
-        </StackPanel>
-    </StackPanel>
+    <Grid x:Name="BingoBoardGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+    </Grid>
 </Window>

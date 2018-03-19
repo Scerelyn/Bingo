@@ -23,6 +23,19 @@ namespace Bingo
         public MainWindow()
         {
             InitializeComponent();
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    Border b = new Border();
+                    b.BorderThickness = new Thickness(1);
+                    b.BorderBrush = Brushes.Black;
+                    b.Child = new Label() { Content = $"C{i}R{j}" };
+                    BingoBoardGrid.Children.Add(b);
+                    Grid.SetColumn(b, i);
+                    Grid.SetRow(b, j);
+                }
+            }
         }
     }
 }

@@ -30,12 +30,17 @@ namespace Bingo
                     Border border = new Border();
                     border.BorderThickness = new Thickness(1);
                     border.BorderBrush = Brushes.Black;
+
                     Label label = new Label();
-                    Binding bind = new Binding("CellText");
-                    label.SetBinding(Label.ContentProperty, bind);
+                    Binding textBind = new Binding("CellText");
+                    label.SetBinding(Label.ContentProperty, textBind);
+                    Binding bgBind = new Binding("IsChecked");
+                    bgBind.Converter = new BoolToBrushConverter();
+                    label.SetBinding(Label.BackgroundProperty, bgBind);
                     label.DataContext = new BingoCellInfo() { CellText = $"C{i}R{j}" };
+                    label.MouseDown += (o, args) => { BingoCellInfo bci = ((BingoCellInfo)label.DataContext); bci.IsChecked = !bci.IsChecked;  };
+
                     border.Child = label;
-                    
 
                     BingoBoardGrid.Children.Add(border);
                     Grid.SetColumn(border, i);

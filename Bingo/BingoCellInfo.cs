@@ -15,12 +15,30 @@ namespace Bingo
         /// <summary>
         /// The text to display on the cell
         /// </summary>
-        public string CellText { get; set; }
+        public string CellText
+        {
+            get { return cellText; }
+            set
+            {
+                cellText = value;
+                FieldChanged();
+            }
+        }
+        private string cellText = "";
+
         /// <summary>
         /// Determines whether or not the cell is checked
         /// </summary>
-        public bool IsChecked { get; set; }
-
+        public bool IsChecked
+        {
+            get { return isChecked; }
+            set
+            {
+                isChecked = value;
+                FieldChanged();
+            }
+        }
+        private bool isChecked = false;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void FieldChanged(string field = null)

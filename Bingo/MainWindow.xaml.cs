@@ -27,13 +27,19 @@ namespace Bingo
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    Border b = new Border();
-                    b.BorderThickness = new Thickness(1);
-                    b.BorderBrush = Brushes.Black;
-                    b.Child = new Label() { Content = $"C{i}R{j}" };
-                    BingoBoardGrid.Children.Add(b);
-                    Grid.SetColumn(b, i);
-                    Grid.SetRow(b, j);
+                    Border border = new Border();
+                    border.BorderThickness = new Thickness(1);
+                    border.BorderBrush = Brushes.Black;
+                    Label label = new Label();
+                    Binding bind = new Binding("CellText");
+                    label.SetBinding(Label.ContentProperty, bind);
+                    label.DataContext = new BingoCellInfo() { CellText = $"C{i}R{j}" };
+                    border.Child = label;
+                    
+
+                    BingoBoardGrid.Children.Add(border);
+                    Grid.SetColumn(border, i);
+                    Grid.SetRow(border, j);
                 }
             }
         }

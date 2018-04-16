@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +22,17 @@ namespace Bingo
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<string> cellContents = new List<string>();
+
         public MainWindow()
         {
             InitializeComponent();
+            BuildBoard();
+        }
+
+        public void BuildBoard()
+        {
+            Random rng = new Random();
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
@@ -31,21 +41,48 @@ namespace Bingo
                     border.BorderThickness = new Thickness(1);
                     border.BorderBrush = Brushes.Black;
 
-                    Label label = new Label();
+                    TextBlock textBlock = new TextBlock();
                     Binding textBind = new Binding("CellText");
-                    label.SetBinding(Label.ContentProperty, textBind);
+                    textBlock.SetBinding(TextBlock.TextProperty, textBind);
                     Binding bgBind = new Binding("IsChecked");
                     bgBind.Converter = new BoolToBrushConverter();
-                    label.SetBinding(Label.BackgroundProperty, bgBind);
-                    label.DataContext = new BingoCellInfo() { CellText = $"C{i}R{j}" };
-                    label.MouseDown += (o, args) => { BingoCellInfo bci = ((BingoCellInfo)label.DataContext); bci.IsChecked = !bci.IsChecked;  };
+                    textBlock.SetBinding(TextBlock.BackgroundProperty, bgBind);
+                    if (i == 2 && j == 2)
+                    {
+                        textBlock.DataContext =
+                            cellContents.Count > 0
+                                ? new BingoCellInfo() { CellText = cellContents[0] }
+                                : new BingoCellInfo();
+                    }
+                    else
+                    {
+                        textBlock.DataContext = 
+                            cellContents.Count > 0 
+                                ? new BingoCellInfo() { CellText = cellContents[rng.Next(1,cellContents.Count)] }
+                                : new BingoCellInfo();
+                    }
+                    textBlock.MouseDown += (o, args) => { BingoCellInfo bci = ((BingoCellInfo)textBlock.DataContext); bci.IsChecked = !bci.IsChecked; };
+                    textBlock.TextWrapping = TextWrapping.WrapWithOverflow;
+                    textBlock.Padding = new Thickness(10);
 
-                    border.Child = label;
-
+                    border.Child = textBlock;
+                    border.Height = 150;
+                    border.Width = 150;
                     BingoBoardGrid.Children.Add(border);
                     Grid.SetColumn(border, i);
                     Grid.SetRow(border, j);
                 }
+            }
+        }
+
+        public void DoOpen(object sender, RoutedEventArgs args)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            bool? dialogResult = ofd.ShowDialog();
+            if (dialogResult ?? false)
+            {
+                cellContents = File.ReadLines(ofd.FileName).ToList();
+                BuildBoard();
             }
         }
     }

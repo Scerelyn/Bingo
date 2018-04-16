@@ -5,21 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bingo"
         mc:Ignorable="d"
-        Title="BingoSheet" Height="350" Width="525">
-    <Grid x:Name="BingoBoardGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-    </Grid>
+        Title="BingoSheet" Height="805" Width="750">
+    <Window.CommandBindings>
+        <CommandBinding Command="Open" Executed="DoOpen"/>
+    </Window.CommandBindings>
+    <StackPanel>
+        <Menu>
+            <MenuItem Header="Load">
+                <MenuItem Header="Load Text Data" Command="Open"/>
+            </MenuItem>
+            <MenuItem Header="Help">
+                <MenuItem Header="About"/>
+                <MenuItem Header="File Formatting"/>
+            </MenuItem>
+        </Menu>
+        <Grid x:Name="BingoBoardGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+        </Grid>
+    </StackPanel>
 </Window>

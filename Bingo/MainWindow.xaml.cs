@@ -23,6 +23,7 @@ namespace Bingo
     public partial class MainWindow : Window
     {
         List<string> cellContents = new List<string>();
+        Random rng = new Random();
 
         public MainWindow()
         {
@@ -32,7 +33,8 @@ namespace Bingo
 
         public void BuildBoard()
         {
-            Random rng = new Random();
+            List<string> cellText = PickWithoutDupes();
+            int cellTextIndex = 0;
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
@@ -56,10 +58,11 @@ namespace Bingo
                     }
                     else
                     {
-                        textBlock.DataContext = 
-                            cellContents.Count > 0 
-                                ? new BingoCellInfo() { CellText = cellContents[rng.Next(1,cellContents.Count)] }
+                        textBlock.DataContext =
+                            cellContents.Count > 0
+                                ? new BingoCellInfo() { CellText = cellText[cellTextIndex] }
                                 : new BingoCellInfo();
+                        cellTextIndex++;
                     }
                     textBlock.MouseDown += (o, args) => { BingoCellInfo bci = ((BingoCellInfo)textBlock.DataContext); bci.IsChecked = !bci.IsChecked; };
                     textBlock.TextWrapping = TextWrapping.WrapWithOverflow;
@@ -84,6 +87,30 @@ namespace Bingo
                 cellContents = File.ReadLines(ofd.FileName).ToList();
                 BuildBoard();
             }
+        }
+
+        /// <summary>
+        /// Gets 24 cell text entries randomly selected without duplicates
+        /// </summary>
+        /// <returns>A List of string randomly choosen without duplicates</returns>
+        public List<string> PickWithoutDupes()
+        {
+            List<string> choosen = new List<string>();
+            List<int> choosenInt = new List<int>();
+            if (cellContents.Count == 0)
+            {
+                return choosen;
+            }
+            for (int i = 0; i < 24; i++)
+            {
+                int num = rng.Next(1,cellContents.Count);
+                while (choosenInt.Contains(num))
+                {
+                    num = rng.Next(1, cellContents.Count);
+                }
+                choosen.Add(cellContents[num]);
+            }
+            return choosen;
         }
     }
 }

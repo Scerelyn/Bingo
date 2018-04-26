@@ -104,11 +104,9 @@ namespace Bingo
             }
             for (int i = 0; i < 24; i++)
             {
-                int num = rng.Next(1,cellContents.Count);
-                while (choosenInt.Contains(num))
-                {
-                    num = rng.Next(1, cellContents.Count);
-                }
+                List<int> nums = Enumerable.Range(1,24).ToList();
+                int num = nums[rng.Next(0,nums.Count)];
+                nums.Remove(num);
                 choosen.Add(cellContents[num]);
             }
             return choosen;

@@ -8,15 +8,17 @@
         Title="BingoSheet" Height="805" Width="750">
     <Window.CommandBindings>
         <CommandBinding Command="Open" Executed="DoOpen"/>
+        <CommandBinding Command="Help" Executed="DoFileHelp"/>
+        <CommandBinding Command="Redo" Executed="DoReRandomize"/>
     </Window.CommandBindings>
     <StackPanel>
         <Menu>
             <MenuItem Header="Load">
-                <MenuItem Header="Load Text Data" Command="Open"/>
+                <MenuItem Header="_Load Text Data" Command="Open"/>
+                <MenuItem Header="_Re-Randomize board" Command="Redo"/>
             </MenuItem>
             <MenuItem Header="Help">
-                <MenuItem Header="About"/>
-                <MenuItem Header="File Formatting"/>
+                <MenuItem Header="How to format a bingo file" Command="Help"/>
             </MenuItem>
         </Menu>
         <Grid x:Name="BingoBoardGrid">

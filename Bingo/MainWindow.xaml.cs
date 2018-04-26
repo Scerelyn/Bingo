@@ -33,6 +33,7 @@ namespace Bingo
 
         public void BuildBoard()
         {
+            BingoBoardGrid.Children.Clear();
             List<string> cellText = PickWithoutDupes();
             int cellTextIndex = 0;
             for (int i = 0; i < 5; i++)
@@ -111,6 +112,16 @@ namespace Bingo
                 choosen.Add(cellContents[num]);
             }
             return choosen;
+        }
+
+        public void DoFileHelp(object sender, RoutedEventArgs args)
+        {
+            MessageBox.Show("The text file to use should be a plain text (.txt) file. Entries to put into cells should be separated by new lines. The first line of the file will always occupy the center cell.","Title");
+        }
+
+        public void DoReRandomize(object sender, RoutedEventArgs args)
+        {
+            BuildBoard();
         }
     }
 }

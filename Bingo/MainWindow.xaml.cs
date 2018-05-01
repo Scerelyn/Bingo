@@ -70,8 +70,6 @@ namespace Bingo
                     textBlock.Padding = new Thickness(10);
 
                     border.Child = textBlock;
-                    border.Height = 150;
-                    border.Width = 150;
                     BingoBoardGrid.Children.Add(border);
                     Grid.SetColumn(border, i);
                     Grid.SetRow(border, j);
